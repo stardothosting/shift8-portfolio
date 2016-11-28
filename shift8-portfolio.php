@@ -94,6 +94,12 @@ $custom_meta_fields = array(
         'type'  => 'media'
     ),
     array(
+        'label'=> 'Gallery Images',
+        'desc'  => 'This is the gallery images on the single item page.',
+        'id'    => $prefix.'gallery',
+        'type'  => 'gallery'
+    ),
+    array(
         'label'=> 'Single page or image expand',
         'desc'  => 'Check if you want the user to arrive on the single portfolio page on click or to expand the image.',
         'id'    => $prefix.'checkbox',
@@ -117,15 +123,18 @@ function show_custom_meta_box() {
 		<th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
 		<td>';
 		switch($field['type']) {
-			// media
+                        case 'checkbox':
+                        echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
+                        <label for="'.$field['id'].'">'.$field['desc'].'</label>';
+                        break;
 			case 'media':
 			echo '<input id="shift8_portfolio_image" type="text" size="36" name="shift8_portfolio_image" value="" />
 			<input id="shift8_portfolio_image_button" type="button" value="Upload Image" />';
 			break;
-			case 'checkbox':
-			echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
-			<label for="'.$field['id'].'">'.$field['desc'].'</label>';
-			break;
+                        case 'gallery':
+                        echo '<input id="shift8_portfolio_gallery" type="text" size="36" name="shift8_portfolio_gallery" value="" />
+                        <input id="shift8_portfolio_gallery_button" type="button" value="Upload Image" />';
+                        break;
 		} //end switch
 		echo '</td></tr>';
 	} // end foreach

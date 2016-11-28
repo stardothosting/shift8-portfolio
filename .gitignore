@@ -1,0 +1,5 @@
+.DS_Store
+push.sh
+wp-deploy/*
+svn/*
+push.exclude
