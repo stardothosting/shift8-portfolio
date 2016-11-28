@@ -1,0 +1,106 @@
+/* Portfolio Grid Style */
+
+.shift8-portfolio-image-cropped {
+    width:100%;
+    height:500px;
+    background-repeat: no-repeat;
+    -ms-background-position-x: center;
+    -ms-background-position-y: center;
+    background-position: center;
+    background-size: cover;
+
+}
+.shift8-portfolio-image-layer {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.shift8-portfolio-image-layer h2 {
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    font-size: 2rem;
+    transform: translate(-50%, -50%);
+    white-space:nowrap;
+}
+
+.shift8-portfolio-thumb {
+    padding-bottom:0px;
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
+.shift8-portfolio-thumb:hover {
+    cursor: pointer;
+}
+
+.shift8-portfolio-heading {
+    font-size: 3.5em;
+    line-height: 1.05em;
+    letter-spacing: 0.09em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    text-align:center;
+}
+
+.shift8-portfolio-heading {
+    font-size: 3.5em;
+    line-height: 1.05em;
+    letter-spacing: 0.025em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    text-align:center;
+}
+
+/* Overlay Effects */
+
+#shift8-peffect .overlay {
+  top: 0;
+    bottom:0;
+  left: 0;
+    right: 0;
+  opacity: 0;
+  }
+#shift8-peffect .foverlay {
+  top: 0px;
+    bottom:0;
+  left: 0;
+    right: 0;
+  opacity: 0;
+  }
+  #shift8-peffect .overlay a.expand, #shift8-peffect .foverlay a.expand {
+    left: 0;
+  right: 0;
+    top: 0;
+  margin: 0 auto;
+    opacity: 0;
+  -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+#shift8-peffect .shift8-thumb.hover .overlay {
+  opacity: 1;
+  }
+  #shift8-peffect .shift8-thumb.hover .overlay a.expand {
+    top: 50%;
+  margin-top: -30px;
+    opacity: 1;
+}
+#shift8-peffect .shift8-fthumb.hover .foverlay {
+  opacity: 1;
+  }
+#shift8-peffect .shift8-fthumb.hover .foverlay a.expand {
+    top: 50%;
+  margin-top: -30px;
+    opacity: 1;
+}
