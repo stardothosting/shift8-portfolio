@@ -21,12 +21,14 @@ jQuery(document).ready(function() {
                 });
 
                 // Runs when an image is selected.
+console.log('hi');
                 meta_image_frame.on('select', function(){
 
                         // Grabs the attachment selection and creates a JSON representation of the model.
                         var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 
                         // Sends the attachment URL to our custom image input field.
+			console.log('media url : ' + JSON.stringify(media_attachment.url));
                         jQuery('#shift8_portfolio_image').val(media_attachment.url);
                 });
 

@@ -85,12 +85,12 @@ function add_custom_meta_box() {
 add_action('add_meta_boxes', 'add_custom_meta_box');
 
 // Field Array
-$prefix = 'shift8portfolio_';
+$prefix = 'shift8_portfolio_';
 $custom_meta_fields = array(
     array(
         'label'=> 'Main Image',
         'desc'  => 'This is the main image that is shown in the grid and at the top of the single item page.',
-        'id'    => $prefix.'media',
+        'id'    => $prefix.'image',
         'type'  => 'media'
     ),
     array(
@@ -107,8 +107,15 @@ $custom_meta_fields = array(
     ),
 );
 
+// Get image ID from URL
+function shift8_portfolio_get_image_id($image_url) {
+    global $wpdb;
+    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
+        return $attachment[0]; 
+}
+
 // The Callback
-function show_custom_meta_box() {
+function show_custom_meta_box($object) {
 	global $custom_meta_fields, $post;
 	// Use nonce for verification
 	echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
@@ -128,11 +135,12 @@ function show_custom_meta_box() {
                         <label for="'.$field['id'].'">'.$field['desc'].'</label>';
                         break;
 			case 'media':
-			echo '<input id="shift8_portfolio_image" type="text" size="36" name="shift8_portfolio_image" value="" />
+			echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="" />
+			<img src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '">
 			<input id="shift8_portfolio_image_button" type="button" value="Upload Image" />';
 			break;
                         case 'gallery':
-                        echo '<input id="shift8_portfolio_gallery" type="text" size="36" name="shift8_portfolio_gallery" value="" />
+                        echo '<input id="shift8_portfolio_gallery" type="hidden" name="shift8_portfolio_gallery" value="" />
                         <input id="shift8_portfolio_gallery_button" type="button" value="Upload Image" />';
                         break;
 		} //end switch
@@ -143,33 +151,37 @@ function show_custom_meta_box() {
 
 // Save the Data
 function save_custom_meta($post_id) {
-    global $custom_meta_fields;
+	global $custom_meta_fields;
      
-    // verify nonce
-    if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__))) 
-        return $post_id;
-    // check autosave
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-        return $post_id;
-    // check permissions
-    if ('page' == $_POST['post_type']) {
-        if (!current_user_can('edit_page', $post_id))
-            return $post_id;
-        } elseif (!current_user_can('edit_post', $post_id)) {
-            return $post_id;
-    }
-     
-    // loop through fields and save the data
-    foreach ($custom_meta_fields as $field) {
-        $old = get_post_meta($post_id, $field['id'], true);
-        $new = $_POST[$field['id']];
-        if ($new && $new != $old) {
-            update_post_meta($post_id, $field['id'], $new);
-        } elseif ('' == $new && $old) {
-            delete_post_meta($post_id, $field['id'], $old);
-        }
-    } // end foreach
+	// Verify nonce
+	if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__))) 
+		return $post_id;
+	// Check autosave
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+		return $post_id;
+	// Check permissions
+	if ('page' == $_POST['post_type']) {
+		if (!current_user_can('edit_page', $post_id))
+			return $post_id;
+	} elseif (!current_user_can('edit_post', $post_id)) {
+		return $post_id;
+	}
+
+	// Loop through meta fields
+	foreach ($custom_meta_fields as $field) {
+		$new_meta_value = $_POST[$field['id']];
+		$meta_key = $field['id'];
+		$meta_value = get_post_meta( $post_id, $meta_key, true );
+		if ( $new_meta_value && '' == $meta_value ) {
+			add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+		} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
+			update_post_meta( $post_id, $meta_key, $new_meta_value );
+		} elseif ( '' == $new_meta_value && $meta_value ) {
+			delete_post_meta( $post_id, $meta_key, $meta_value );
+		}
+	}
 }
+
 add_action('save_post', 'save_custom_meta');
 
 
