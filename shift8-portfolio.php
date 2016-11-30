@@ -11,8 +11,8 @@
 
 // Load Front end CSS and JS
 function shift8_portfolio_scripts() {
-	wp_enqueue_style( 'shift8bootstrap', get_template_directory_uri() . '/bootstrap/css/bootstrap.css');
-	wp_enqueue_style( 'shift8portfolio', get_template_directory_uri() . '/css/shift8_portfolio.css');
+	wp_enqueue_style( 'shift8bootstrap', plugin_dir_url( __FILE__ ) . '/bootstrap/css/bootstrap.css');
+	wp_enqueue_style( 'shift8portfolio', plugin_dir_url( __FILE__ ) . '/css/shift8_portfolio.css');
 }
 add_action( 'wp_enqueue_scripts', 'shift8_portfolio_scripts', 12,1 );
 
@@ -205,63 +205,61 @@ add_action('save_post', 'save_custom_meta');
 
 // Shortcode for menu overlay system
 function shift8_portfolio_shortcode($atts){
-    extract(shortcode_atts(array(
-        'numposts' => '-1',
-    ), $atts));
+	extract(shortcode_atts(array(
+		'numposts' => '-1',
+	), $atts));
 
-    $args = array(
-            'numberposts' => -1,
-            'posts_per_page' => -1,
-            'post_type' => 'our_work',
-            'post_status' => 'publish',
-            'orderby' => 'meta_value',
-            'meta_key' => 'date_launched',
-            //'meta_value' => date("Ymd"),
-            //'meta_compare' => '>=',
-            'order' => 'DESC',
-        );
+	$args = array(
+		'numberposts' => -1,
+		'posts_per_page' => -1,
+		'post_type' => 'shift8_portfolio',
+		'post_status' => 'publish',
+		'orderby' => 'date',
+		'order' => 'DESC',
+	);
+	
+	global $post;
+	$out = '';
+	$posts = new WP_Query($args);
+	if ($posts->have_posts()) {
+		$out .= '<div id="effect-6" class="shift8-portfolio-container effects clearfix row" >';
+		while ($posts->have_posts()) {
+			$posts->the_post();
+			// get event image
+			$work_image_url = get_post_meta(get_the_ID(),'shift8_portfolio_image',true);
+			$work_image = wp_get_attachment_image_src(shift8_portfolio_get_image_id($work_image_url), 'large');
 
-    global $post;
-    $out = '';
-    $posts = new WP_Query($args);
-    if ($posts->have_posts()) {
-        $out .= '<div id="effect-6" class="shift8-work-container effects clearfix row" >';
-        while ($posts->have_posts()) {
-            $posts->the_post();
-            // get event image
-            $work_image = get_field('main_image');
-            $work_image_display = null;
-            // get link to work page
-            $work_link = get_post_permalink($posts->ID);
+			$work_image_display = null;
+			// get link to work page
+			$work_link = get_post_permalink($posts->ID);
+			// get gallery ids
+			$work_gallery = explode(',', get_post_meta(get_the_ID(),'shift8_portfolio_image',true));
 
-            if (!empty($work_image)) {
-                $work_image_display = '<div class="shift8-work-image-cropped" style="background-image: url(\'' . $work_image['sizes']['large'] . '\');"><div class="shift8-work-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
-                //$work_image_display = '<div class="shift8-work-image-cropped"><img src="' . $work_image['sizes']['work-size'] . '"></div>';
-            }
-            // get project name
-            $project_name = get_field('project_name');
-
-            $out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-thumb shift8-work-' . get_the_ID() . '">
-                        '. $work_image_display .'
-                        <div class="overlay">
-                            <a href="' . $work_link . '" class="expand">+</a>
-                            <a class="close-overlay hidden">x</a>
-                        </div>.
-                    </div>
-                    <script>
-                    jQuery(".shift8-work-' . get_the_ID() . '").click(function() {
-                        window.location = jQuery(this).find("a").attr("href");
-                        return false;
-                    });
-                    </script>
-                    ';
-        }
-    } else {
-        return;
-    }
-    $out .= '</div></div>';
-    wp_reset_query();
-    return html_entity_decode($out);
-
+			if (!empty($work_image)) {
+				$work_image_display = '<div class="shift8-portfolio-image-cropped" style="background-image: url(\'' . $work_image[0] . '\');"><div class="shift8-portfolio-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
+			}
+			// get project name
+			//$project_name = get_field('project_name');
+			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-thumb shift8-portfolio-' . get_the_ID() . '">
+			'. $work_image_display .'
+			<div class="overlay">
+			<a href="' . $work_link . '" class="expand">+</a>
+			<a class="close-overlay hidden">x</a>
+			</div>.
+			</div>
+			<script>
+				jQuery(".shift8-portfolio-' . get_the_ID() . '").click(function() {
+				window.location = jQuery(this).find("a").attr("href");
+				return false;
+				});
+			</script>
+			';
+		}
+	} else {
+		return;
+	}
+	$out .= '</div></div>';
+	wp_reset_query();
+	return html_entity_decode($out);
 }
 add_shortcode('shift8_portfolio', 'shift8_portfolio_shortcode');
