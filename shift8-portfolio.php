@@ -12,7 +12,7 @@
 // Load Front end CSS and JS
 function shift8_portfolio_scripts() {
 	wp_enqueue_style( 'shift8bootstrap', get_template_directory_uri() . '/bootstrap/css/bootstrap.css');
-	wp_enqueue_style( 'shift8portfolio', get_template_directory_uri() . '/css/shift8-portfolio.css');
+	wp_enqueue_style( 'shift8portfolio', get_template_directory_uri() . '/css/shift8_portfolio.css');
 }
 add_action( 'wp_enqueue_scripts', 'shift8_portfolio_scripts', 12,1 );
 
@@ -99,12 +99,12 @@ $custom_meta_fields = array(
         'id'    => $prefix.'gallery',
         'type'  => 'gallery'
     ),
-    array(
-        'label'=> 'Single page or image expand',
-        'desc'  => 'Check if you want the user to arrive on the single portfolio page on click or to expand the image.',
-        'id'    => $prefix.'checkbox',
-        'type'  => 'checkbox'
-    ),
+//    array(
+//        'label'=> 'Single page or image expand',
+//        'desc'  => 'Check if you want the user to arrive on the single portfolio page on click or to expand the image.',
+//        'id'    => $prefix.'checkbox',
+//        'type'  => 'checkbox'
+//    ),
 );
 
 // Get image ID from URL
@@ -130,18 +130,32 @@ function show_custom_meta_box($object) {
 		<th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
 		<td>';
 		switch($field['type']) {
-                        case 'checkbox':
-                        echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
-                        <label for="'.$field['id'].'">'.$field['desc'].'</label>';
-                        break;
+                        //case 'checkbox':
+                        //echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
+                        //<label for="'.$field['id'].'">'.$field['desc'].'</label>';
+                        //break;
 			case 'media':
-			echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="" />
-			<img src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '">
-			<input id="shift8_portfolio_image_button" type="button" value="Upload Image" />';
+			$close_button = null;
+			if ($meta) {
+				$close_button = '<span class="shift8_portfolio_close"></span>';
+			}
+			echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="' . $meta . '" />
+			<div class="shift8_portfolio_image_container">' . $close_button . '<img id="shift8_portfolio_image_src" src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '"></div>
+			<input id="shift8_portfolio_image_button" type="button" value="Add Image" />';
 			break;
                         case 'gallery':
-                        echo '<input id="shift8_portfolio_gallery" type="hidden" name="shift8_portfolio_gallery" value="" />
-                        <input id="shift8_portfolio_gallery_button" type="button" value="Upload Image" />';
+			$meta_html = null;
+			if ($meta) {
+				$meta_html .= '<ul class="shift8_portfolio_gallery_list">';
+				$meta_array = explode(',', $meta);
+				foreach ($meta_array as $meta_gall_item) {
+					$meta_html .= '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="' . $meta_gall_item . '" src="' . wp_get_attachment_thumb_url($meta_gall_item) . '"></span></div></li>';
+				}
+				$meta_html .= '</ul>';
+			} 
+                        echo '<input id="shift8_portfolio_gallery" type="hidden" name="shift8_portfolio_gallery" value="' . $meta . '" />
+			<span id="shift8_portfolio_gallery_src">' . $meta_html . '</span>
+                        <div class="shift8_gallery_button_container"><input id="shift8_portfolio_gallery_button" type="button" value="Add Gallery" /></div>';
                         break;
 		} //end switch
 		echo '</td></tr>';
@@ -172,11 +186,14 @@ function save_custom_meta($post_id) {
 		$new_meta_value = $_POST[$field['id']];
 		$meta_key = $field['id'];
 		$meta_value = get_post_meta( $post_id, $meta_key, true );
-		if ( $new_meta_value && '' == $meta_value ) {
+		
+		// If theres a new meta value and the existing meta value is empty
+		if ( $new_meta_value && $meta_value == null ) {
 			add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+		// If theres a new meta value and the existing meta value is different
 		} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
 			update_post_meta( $post_id, $meta_key, $new_meta_value );
-		} elseif ( '' == $new_meta_value && $meta_value ) {
+		} elseif ( $new_meta_value == null && $meta_value ) {
 			delete_post_meta( $post_id, $meta_key, $meta_value );
 		}
 	}

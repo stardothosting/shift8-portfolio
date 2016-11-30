@@ -1,0 +1,49 @@
+#shift8_portfolio_image_button {
+	display:block;
+}
+
+.shift8_portfolio_image_container {
+	position:relative;
+	width:150px;
+	height:150px;
+}
+
+.shift8_portfolio_close:after {
+	font-size:40px !important;
+	display:block;
+	content: "\00d7";
+	position:absolute;
+	color: #fff;
+	top: 0px;
+	right:5px;
+	text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+}
+
+.shift8_portfolio_gallery_list li {
+	display:inline;
+	float:left;
+}
+.shift8_portfolio_gallery_container {
+	position:relative;
+	width:150px;
+	height:150px;
+}
+.shift8_gallery_button_container {
+	clear:left;
+}
+
+.shift8_portfolio_gallery_close:after {
+        font-size:40px !important;
+        display:block;
+        content: "\00d7";
+        position:absolute;
+        color: #fff;
+        top: 0px;
+        right:5px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#shift8_portfolio_gallery_button {
+	display:block;
+}
+

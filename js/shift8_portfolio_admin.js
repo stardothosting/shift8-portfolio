@@ -21,15 +21,15 @@ jQuery(document).ready(function() {
                 });
 
                 // Runs when an image is selected.
-console.log('hi');
                 meta_image_frame.on('select', function(){
 
                         // Grabs the attachment selection and creates a JSON representation of the model.
                         var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 
                         // Sends the attachment URL to our custom image input field.
-			console.log('media url : ' + JSON.stringify(media_attachment.url));
                         jQuery('#shift8_portfolio_image').val(media_attachment.url);
+			jQuery('.shift8_portfolio_image_container').append('<span class="shift8_portfolio_close"></span>');
+			jQuery('#shift8_portfolio_image_src').attr('src', media_attachment.sizes.thumbnail.url);	
                 });
 
                 // Opens the media library frame.
@@ -40,7 +40,7 @@ console.log('hi');
         // Runs when the image button is clicked.
         jQuery('#shift8_portfolio_gallery_button').click(function(e){
 
-                // Prevents the default action from occuring.
+                //Attachment.sizes.thumbnail.url/ Prevents the default action from occuring.
                 e.preventDefault();
 
                 // If the frame already exists, re-open it.
@@ -77,7 +77,7 @@ console.log('hi');
 		meta_gallery_frame.on('open', function() {
 			var selection = meta_gallery_frame.state().get('selection');
 			var library = meta_gallery_frame.state('gallery-edit').get('library');
-			var ids = jQuery('#fg_perm_metadata').val();
+			var ids = jQuery('#shift8_portfolio_gallery').val();
 			if (ids) {
 				idsArray = ids.split(',');
 				idsArray.forEach(function(id) {
@@ -85,12 +85,12 @@ console.log('hi');
 					attachment.fetch();
 					selection.add( attachment ? [ attachment ] : [] );
 				});
-				meta_gallery_frame.setState('gallery-edit');
-				idsArray.forEach(function(id) {
+				//meta_gallery_frame.setState('gallery-edit');
+				/*idsArray.forEach(function(id) {
 					attachment = wp.media.attachment(id);
 					attachment.fetch();
-					library.add( attachment ? [ attachment ] : [] );
-				});
+					selection.add( attachment ? [ attachment ] : [] );
+				}); */
 			}
 		});
 
@@ -100,23 +100,23 @@ console.log('hi');
 		});
 		 
 		// When an image is selected, run a callback.
-		meta_gallery_frame.on('update', function() {
+		//meta_gallery_frame.on('update', function() {
+		meta_gallery_frame.on('select', function() {
 			var imageIDArray = [];
 			var imageHTML = '';
 			var metadataString = '';
-			images = meta_gallery_frame.state().get('library');
+			images = meta_gallery_frame.state().get('selection');
+			imageHTML += '<ul class="shift8_portfolio_gallery_list">';
 			images.each(function(attachment) {
 				imageIDArray.push(attachment.attributes.id);
-				imageHTML += '<li>'+button+'<img id="'+attachment.attributes.id+'" src="'+attachment.attributes.url+'"></li>';
+				//imageHTML += '<li>'+button+'<img id="'+attachment.attributes.id+'" src="'+attachment.attributes.url+'"></li>';
+				imageHTML += '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="'+attachment.attributes.id+'" src="'+attachment.attributes.sizes.thumbnail.url+'"></span></div></li>';
 			});
+			imageHTML += '</ul>';
 			metadataString = imageIDArray.join(",");
-			console.log('Meta data string : ' + JSON.stringify(metadataString));
-			console.log('image html ' + imageHTML);
 			if (metadataString) {
-				jQuery("#fg_perm_metadata").val(metadataString);
-				jQuery("#shift8_portfolio_gallery").html(imageHTML);
-				//jQuery('#fg_select').text('Edit Selection');
-				//jQuery('#fg_removeall').addClass('visible');
+				jQuery("#shift8_portfolio_gallery").val(metadataString);
+				jQuery("#shift8_portfolio_gallery_src").html(imageHTML);
 				setTimeout(function(){
 					ajaxUpdateTempMetaData();
 				},0);
@@ -128,25 +128,31 @@ console.log('hi');
 		
         });
 
-	function ajaxUpdateTempMetaData() {
+	jQuery(document.body).on('click', '.shift8_portfolio_close', function(event){
+                event.preventDefault();
 
-		jQuery.ajax({
-			type : "post",
-			dataType : "json",
-			url : myAjax.ajaxurl,
-			data : {
-				action: "fg_update_temp", 
-				fg_post_id: jQuery("#fg_perm_metadata").data("post_id"), 
-				fg_temp_noncedata: jQuery("#fg_temp_noncedata").val(), 
-				fg_temp_metadata: jQuery("#fg_perm_metadata").val()
-			},
-			success: function(response) {
-				if (response == "error") {
-					alert("There was an issue with updating the live preview. Make sure that you click Save to ensure your changes aren't lost.");
-				}
-			}
-		});
+                if (confirm('Are you sure you want to remove this image?')) {
+                        jQuery('.shift8_portfolio_image_container').remove();
+                        jQuery("#shift8_portfolio_image").val('');
+		}
+	});
 
-	}
+
+
+	jQuery(document.body).on('click', '.shift8_portfolio_gallery_close', function(event){
+
+		event.preventDefault();
+
+		if (confirm('Are you sure you want to remove this image?')) {
+
+			var removedImage = jQuery(this).children('img').attr('id');
+			var oldGallery = jQuery("#shift8_portfolio_gallery").val();
+			var newGallery = oldGallery.replace(','+removedImage,'').replace(removedImage+',','').replace(removedImage,'');
+			jQuery(this).parents().eq(1).remove();
+			jQuery("#shift8_portfolio_gallery").val(newGallery);
+		}
+
+	});
+
 
 });
