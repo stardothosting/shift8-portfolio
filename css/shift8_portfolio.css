@@ -88,10 +88,10 @@
   -o-transition: all 0.5s;
     transition: all 0.5s;
 }
-#shift8-peffect .shift8-thumb.hover .overlay {
+#shift8-peffect .shift8-portfolio-thumb:hover .overlay { 
   opacity: 1;
   }
-  #shift8-peffect .shift8-thumb.hover .overlay a.expand {
+  #shift8-peffect .shift8-portfolio-thumb:hover .overlay a.expand {
     top: 50%;
   margin-top: -30px;
     opacity: 1;
@@ -103,4 +103,57 @@
     top: 50%;
   margin-top: -30px;
     opacity: 1;
+}
+
+/* effects */
+.overlay, .foverlay {
+  display: block;
+    position: absolute;
+  z-index: 20;
+    background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+    -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+  transition: all 0.5s;
+  }
+
+  a.close-overlay {
+    display: block;
+  position: absolute;
+    top: 0;
+  right: 0;
+    z-index: 100;
+  width: 45px;
+    height: 45px;
+  font-size: 20px;
+    font-weight: 700;
+  color: #fff;
+    line-height: 45px;
+  text-align: center;
+    background-color: #000;
+  cursor: pointer;
+  }
+  a.close-overlay.hidden {
+    display: none;
+}
+
+a.expand {
+  display: block;
+    position: absolute;
+  z-index: 100;
+    width: 60px;
+  height: 60px;
+    border: solid 2px #fff;
+  text-align: center;
+    color: #fff;
+  line-height: 55px;
+    font-weight: 700;
+  font-size: 30px;
+    -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+    border-radius: 30px;
+    text-decoration:none !important;
 }

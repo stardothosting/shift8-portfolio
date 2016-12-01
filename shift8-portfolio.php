@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Shift8 Full Width Portfolio
- * Plugin URI: https://github.com/stardothosting/shift8-full-width-portfolio
- * Description: This is a Wordpress plugin that allows you to easily manage and showcase a full width grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
+ * Plugin Name: Shift8 Portfolio
+ * Plugin URI: https://github.com/stardothosting/shift8-portfolio
+ * Description: This is a Wordpress plugin that allows you to easily manage and showcase a grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
  * Version: 1.0.0
  * Author: Shift8 Web 
  * Author URI: https://www.shift8web.ca
@@ -11,8 +11,8 @@
 
 // Load Front end CSS and JS
 function shift8_portfolio_scripts() {
-	wp_enqueue_style( 'shift8bootstrap', plugin_dir_url( __FILE__ ) . '/bootstrap/css/bootstrap.css');
-	wp_enqueue_style( 'shift8portfolio', plugin_dir_url( __FILE__ ) . '/css/shift8_portfolio.css');
+	wp_enqueue_style( 'shift8bootstrap', plugin_dir_url( __FILE__ ) . 'bootstrap/css/bootstrap.css');
+	wp_enqueue_style( 'shift8portfolio', plugin_dir_url( __FILE__ ) . 'css/shift8_portfolio.css');
 }
 add_action( 'wp_enqueue_scripts', 'shift8_portfolio_scripts', 12,1 );
 
@@ -222,7 +222,7 @@ function shift8_portfolio_shortcode($atts){
 	$out = '';
 	$posts = new WP_Query($args);
 	if ($posts->have_posts()) {
-		$out .= '<div id="effect-6" class="shift8-portfolio-container effects clearfix row" >';
+		$out .= '<div id="shift8-peffect" class="shift8-portfolio-container effects clearfix row" >';
 		while ($posts->have_posts()) {
 			$posts->the_post();
 			// get event image
@@ -240,12 +240,12 @@ function shift8_portfolio_shortcode($atts){
 			}
 			// get project name
 			//$project_name = get_field('project_name');
-			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-thumb shift8-portfolio-' . get_the_ID() . '">
+			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-portfolio-thumb shift8-portfolio-' . get_the_ID() . '">
 			'. $work_image_display .'
 			<div class="overlay">
 			<a href="' . $work_link . '" class="expand">+</a>
 			<a class="close-overlay hidden">x</a>
-			</div>.
+			</div>
 			</div>
 			<script>
 				jQuery(".shift8-portfolio-' . get_the_ID() . '").click(function() {

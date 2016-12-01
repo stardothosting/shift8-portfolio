@@ -1,4 +1,4 @@
-=== Shift8 Full Width Portfolio ===
+=== Shift8 Portfolio ===
 Contributors: 
 Donate link: https://www.shift8web.ca
 Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
@@ -8,7 +8,7 @@ Stable tag: 4.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This is a Wordpress plugin that allows you to easily manage and showcase a full width grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
+This is a Wordpress plugin that allows you to easily manage and showcase a grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
 
 == Description ==
 
