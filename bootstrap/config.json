@@ -382,8 +382,11 @@
     "@hr-border": "@gray-lighter"
   },
   "css": [
-    "grid.less"
+    "grid.less",
+    "modals.less"
   ],
-  "js": [],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=cbe4721cd613ed1a3a52"
+  "js": [
+    "modal.js"
+  ],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=cc726cbbcf2f718f2ac24dd77746bea3"
 }
