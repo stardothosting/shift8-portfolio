@@ -1,3 +1,113 @@
+/* Single Portfolio Page */
+
+#shift8-portfolio-single-client {
+    margin-top:75px;
+}
+.shift8-portfolio-single-row1 {
+    padding-bottom: 10px;
+}
+.shift8-portfolio-single-row3 {
+    padding: 0 0 40px 0;
+}
+.shift8-portfolio-single-row4 {
+    padding: 0;
+}
+.shift8-feature-container {
+    padding-bottom:25px;
+}
+.shift8-row2-container {
+    width:70%;
+    padding-bottom:30px;
+}
+
+.shift8-portfolio-heading {
+    font-family: 'Proxima N W01 Light';
+    font-size: 3.5em;
+    line-height: 1.05em;
+    letter-spacing: 0.09em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    text-align:center;
+}
+.shift8-portfolio-parent-heading {
+    font-family: 'Proxima N W01 Light';
+    font-size: 3.5em;
+    line-height: 1.05em;
+    letter-spacing: 0.025em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    text-align:center;
+}
+.shift8-portfolio-subheading {
+    font-family: 'Proxima N W01 Light';
+    font-size: 1.5em;
+    line-height: 1.05em;
+    letter-spacing: 0.025em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    text-align:center !important;
+}
+.shift8-portfolio-back-heading {
+    font-family: 'Proxima N W01 Light';
+    font-size: 1.2em;
+    line-height: 1.05em;
+    letter-spacing: 0.025em;
+    color: #454545;
+    opacity: 1;
+    margin: auto;
+    text-transform: uppercase;
+    float:left;
+    padding-top:5px;
+    padding-bottom:25px;
+}
+.shift8-portfolio-back-heading a {
+    color: #454545 !important;
+}
+.shift8-portfolio-back {
+    width:30px;
+    height:30px;
+    float:left;
+    fill: #454545 !important;
+}
+
+.shift8-portfolio-title-border {
+border-bottom: 1px solid #dddddd;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    text-align: center;
+    width: 75px;
+}
+
+.shift8-portfolio-single-client-feature {
+    margin: 0 auto;
+    text-align:center;
+    padding-bottom:25px;
+}
+
+.shift8-portfolio-single-client-feature img {
+    height:auto;
+    max-width:70%;
+}
+
+.shift8-portfolio-gallery {
+	list-style: none;
+	display:table;
+	margin:0 auto;
+}
+.shift8-portfolio-gallery li {
+	float:left;
+	display:inline-block;
+	padding:5px;
+}
+
+
 /* Portfolio Grid Style */
 
 .shift8-portfolio-image-cropped {
@@ -63,21 +173,21 @@
 
 /* Overlay Effects */
 
-#shift8-peffect .overlay {
+#shift8-peffect .shift8-portfolio-overlay {
   top: 0;
     bottom:0;
   left: 0;
     right: 0;
   opacity: 0;
   }
-#shift8-peffect .foverlay {
+#shift8-peffect .shift8-portfolio-foverlay {
   top: 0px;
     bottom:0;
   left: 0;
     right: 0;
   opacity: 0;
   }
-  #shift8-peffect .overlay a.expand, #shift8-peffect .foverlay a.expand {
+  #shift8-peffect .shift8-portfolio-overlay a.shift8-portfolio-expand, #shift8-peffect .shift8-portfolio-foverlay a.shift8-portfolio-expand {
     left: 0;
   right: 0;
     top: 0;
@@ -88,25 +198,25 @@
   -o-transition: all 0.5s;
     transition: all 0.5s;
 }
-#shift8-peffect .shift8-portfolio-thumb:hover .overlay { 
+#shift8-peffect .shift8-portfolio-thumb:hover .shift8-portfolio-overlay { 
   opacity: 1;
   }
-  #shift8-peffect .shift8-portfolio-thumb:hover .overlay a.expand {
+  #shift8-peffect .shift8-portfolio-thumb:hover .shift8-portfolio-overlay a.shift8-portfolio-expand {
     top: 50%;
   margin-top: -30px;
     opacity: 1;
 }
-#shift8-peffect .shift8-fthumb.hover .foverlay {
+#shift8-peffect .shift8-fthumb.hover .shift8-portfolio-foverlay {
   opacity: 1;
   }
-#shift8-peffect .shift8-fthumb.hover .foverlay a.expand {
+#shift8-peffect .shift8-fthumb.hover .shift8-portfolio-foverlay a.shift8-portfolio-expand {
     top: 50%;
   margin-top: -30px;
     opacity: 1;
 }
 
 /* effects */
-.overlay, .foverlay {
+.shift8-portfolio-overlay, .shift8-portfolio-foverlay {
   display: block;
     position: absolute;
   z-index: 20;
@@ -118,7 +228,7 @@
   transition: all 0.5s;
   }
 
-  a.close-overlay {
+  a.shift8-portfolio-close-overlay {
     display: block;
   position: absolute;
     top: 0;
@@ -134,12 +244,11 @@
     background-color: #000;
   cursor: pointer;
   }
-  a.close-overlay.hidden {
+  a.close-overlay.shift8-portfolio-hidden {
     display: none;
 }
 
-a.expand {
-  display: block;
+a.shift8-portfolio-expand {
     position: absolute;
   z-index: 100;
     width: 60px;

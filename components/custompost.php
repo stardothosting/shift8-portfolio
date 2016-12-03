@@ -1,19 +1,14 @@
 <?php
 
-
-// Use custom page template for post type
-add_filter('single_template', 'shift8_portfolio_template');
-
-function shift8_portfolio_template($single) {
-        global $wp_query, $post;
-
-        /* Checks for single template by post type */
-        if ($post->post_type == "shift8_portfolio"){
-                if(file_exists(PLUGIN_PATH . '/template/shift8_portfolio_template.php')) {
-                        return PLUGIN_PATH . '/template/shift8_portfolio_template.php';
-                }
-        }
-        return $single;
+// Assign template to custom post type
+add_filter( 'single_template', 'shift8_portfolio_custom_post_type_template' );
+function shift8_portfolio_custom_post_type_template($single_template) {
+     global $post;
+     if ($post->post_type == 'shift8_portfolio' ) {
+          $single_template = plugin_dir_path(dirname(__FILE__)) . 'template/single-portfolio.php';
+     }
+     return $single_template;
+     wp_reset_postdata();
 }
 
 // Register post type
@@ -41,18 +36,23 @@ function register_cpt_shift8_portfolio() {
                 'hierarchical' => false,
                 'description' => 'Shift8 full width portfolio grid',
                 'supports' => array( 'editor', 'title' ),
-                'public' => false,
+                'public' => true,
                 'show_ui' => true,
                 'show_in_menu' => true,
                 'menu_position' => 5,
                 'menu_icon' => 'dashicons-grid-view',
                 'show_in_nav_menus' => false,
-                'publicly_queryable' => false,
+                'publicly_queryable' => true,
                 'exclude_from_search' => true,
                 'has_archive' => false,
                 'query_var' => true,
                 'can_export' => true,
-                'rewrite' => true,
+		'rewrite' => array(
+			'slug' => 'portfolio',
+			'with_front' => true,
+			'feeds' => true,
+			'pages' => true
+		),
                 'capability_type' => 'post'
         );
 

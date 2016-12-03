@@ -10,6 +10,7 @@ add_action( 'wp_enqueue_scripts', 'shift8_portfolio_scripts', 12,1 );
 // Register admin scripts for custom fields
 function load_shift8_portfolio_wp_admin_style() {
         wp_enqueue_media();
+	wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script('media-upload');
         wp_enqueue_script('thickbox');
         wp_enqueue_style('thickbox');

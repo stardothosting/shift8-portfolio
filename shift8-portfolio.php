@@ -13,12 +13,11 @@ require_once(plugin_dir_path(__FILE__).'components/enqueuing.php' );
 require_once(plugin_dir_path(__FILE__).'components/custompost.php' );
 require_once(plugin_dir_path(__FILE__).'components/metabox.php' );
 
-
 // Get image ID from URL
 function shift8_portfolio_get_image_id($image_url) {
     global $wpdb;
-    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
-        return $attachment[0]; 
+    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ));
+        return $attachment[0];
 }
 
 // Shortcode for menu overlay system
@@ -60,9 +59,8 @@ function shift8_portfolio_shortcode($atts){
 			//$project_name = get_field('project_name');
 			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-portfolio-thumb shift8-portfolio-' . get_the_ID() . '">
 			'. $work_image_display .'
-			<div class="overlay">
-			<a href="' . $work_link . '" class="expand">+</a>
-			<a class="close-overlay hidden">x</a>
+			<div class="shift8-portfolio-overlay">
+			<a href="' . $work_link . '" class="shift8-portfolio-expand">+</a>
 			</div>
 			</div>
 			<script>
