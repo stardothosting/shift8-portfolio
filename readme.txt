@@ -46,7 +46,7 @@ Unfortunately this is not possible at this point. Eventually a number will be pa
 
 = What else have you done? =
 
-You can visit [our website](https://www.shift8web.ca "Toronto Web Design") to see! :)
+We do [toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 == Screenshots ==
 
