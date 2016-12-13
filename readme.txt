@@ -42,7 +42,7 @@ You can either style the content by using the built-in Wordpress WYSIWYG editor 
 
 = How do I change the number of grid items per row? =
 
-Unfortunately this is not possible at this point. Eventually a number will be passed via shortcode options
+Unfortunately this is not possible at this point. Eventually a number will be passed via shortcode options in a future version very soon!
 
 = What else have you done? =
 
@@ -50,8 +50,8 @@ We do [toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 == Screenshots ==
 
-1. This is the trigger button. It can either be a *<button>* or a text a href link. Both options will have CSS classes wrapping the modal trigger so you can style it however you want.
-2. This is the flyout area. You can set the background color with the **color** shortcode option. The option takes an HTML color code and applies it to the background of the modal window.
+1. This is the main view of the portfolio items. If your theme allows for full width containers, then it will fill 100% of the width. The portfolio items are using bootstrap scaffolding
+2. This is a single portfolio item. Your gallery will appear under the main image and the text subsequent to that
 
 == Changelog ==
 
