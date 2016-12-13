@@ -1,16 +1,16 @@
 <?php
 
 // Add the Meta Box
-function add_custom_meta_box() {
+function shift8_portfolio_add_custom_meta_box() {
     add_meta_box(
         'custom_meta_box', // $id
         'Shift8 Portfolio Fields', // $title
-        'show_custom_meta_box', // $callback
+        'shift8_portfolio_show_custom_meta_box', // $callback
         'shift8_portfolio', // $page
         'normal', // $context
         'high'); // $priority
 }
-add_action('add_meta_boxes', 'add_custom_meta_box');
+add_action('add_meta_boxes', 'shift8_portfolio_add_custom_meta_box');
 
 // Field Array
 $prefix = 'shift8_portfolio_';
@@ -27,16 +27,10 @@ $custom_meta_fields = array(
         'id'    => $prefix.'gallery',
         'type'  => 'gallery'
     ),
-//    array(
-//        'label'=> 'Single page or image expand',
-//        'desc'  => 'Check if you want the user to arrive on the single portfolio page on click or to expand the image.',
-//        'id'    => $prefix.'checkbox',
-//        'type'  => 'checkbox'
-//    ),
 );
 
 // The Callback
-function show_custom_meta_box($object) {
+function shift8_portfolio_show_custom_meta_box($object) {
         global $custom_meta_fields, $post;
         // Use nonce for verification
         echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
@@ -51,16 +45,12 @@ function show_custom_meta_box($object) {
                 <th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
                 <td>';
                 switch($field['type']) {
-                        //case 'checkbox':
-                        //echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
-                        //<label for="'.$field['id'].'">'.$field['desc'].'</label>';
-                        //break;
                         case 'media':
                         $close_button = null;
                         if ($meta) {
                                 $close_button = '<span class="shift8_portfolio_close"></span>';
                         }
-                        echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="' . $meta . '" />
+                        echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="' . esc_attr($meta) . '" />
                         <div class="shift8_portfolio_image_container">' . $close_button . '<img id="shift8_portfolio_image_src" src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '"></div>
                         <input id="shift8_portfolio_image_button" type="button" value="Add Image" />';
                         break;
@@ -70,11 +60,11 @@ function show_custom_meta_box($object) {
                                 $meta_html .= '<ul class="shift8_portfolio_gallery_list">';
                                 $meta_array = explode(',', $meta);
                                 foreach ($meta_array as $meta_gall_item) {
-                                        $meta_html .= '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="' . $meta_gall_item . '" src="' . wp_get_attachment_thumb_url($meta_gall_item) . '"></span></div></li>';
+                                        $meta_html .= '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="' . esc_attr($meta_gall_item) . '" src="' . wp_get_attachment_thumb_url($meta_gall_item) . '"></span></div></li>';
                                 }
                                 $meta_html .= '</ul>';
                         }
-                        echo '<input id="shift8_portfolio_gallery" type="hidden" name="shift8_portfolio_gallery" value="' . $meta . '" />
+                        echo '<input id="shift8_portfolio_gallery" type="hidden" name="shift8_portfolio_gallery" value="' . esc_attr($meta) . '" />
                         <span id="shift8_portfolio_gallery_src">' . $meta_html . '</span>
                         <div class="shift8_gallery_button_container"><input id="shift8_portfolio_gallery_button" type="button" value="Add Gallery" /></div>';
                         break;
@@ -85,7 +75,7 @@ function show_custom_meta_box($object) {
 }
 
 // Save the Data
-function save_custom_meta($post_id) {
+function shift8_portfolio_save_custom_meta($post_id) {
         global $custom_meta_fields;
 
         // Verify nonce
@@ -104,8 +94,8 @@ function save_custom_meta($post_id) {
 
         // Loop through meta fields
         foreach ($custom_meta_fields as $field) {
-                $new_meta_value = $_POST[$field['id']];
-                $meta_key = $field['id'];
+                $new_meta_value = esc_url($_POST[$field['id']]);
+		$meta_key = $field['id'];
                 $meta_value = get_post_meta( $post_id, $meta_key, true );
 
                 // If theres a new meta value and the existing meta value is empty
@@ -120,4 +110,4 @@ function save_custom_meta($post_id) {
         }
 }
 
-add_action('save_post', 'save_custom_meta');
+add_action('save_post', 'shift8_portfolio_save_custom_meta');

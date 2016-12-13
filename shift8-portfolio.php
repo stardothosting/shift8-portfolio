@@ -43,7 +43,7 @@ function shift8_portfolio_shortcode($atts){
 		while ($posts->have_posts()) {
 			$posts->the_post();
 			// get event image
-			$work_image_url = get_post_meta(get_the_ID(),'shift8_portfolio_image',true);
+			$work_image_url = esc_url(get_post_meta(get_the_ID(),'shift8_portfolio_image',true));
 			$work_image = wp_get_attachment_image_src(shift8_portfolio_get_image_id($work_image_url), 'large');
 
 			$work_image_display = null;
@@ -56,7 +56,6 @@ function shift8_portfolio_shortcode($atts){
 				$work_image_display = '<div class="shift8-portfolio-image-cropped" style="background-image: url(\'' . $work_image[0] . '\');"><div class="shift8-portfolio-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
 			}
 			// get project name
-			//$project_name = get_field('project_name');
 			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-portfolio-thumb shift8-portfolio-' . get_the_ID() . '">
 			'. $work_image_display .'
 			<div class="shift8-portfolio-overlay">

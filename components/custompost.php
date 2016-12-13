@@ -12,9 +12,9 @@ function shift8_portfolio_custom_post_type_template($single_template) {
 }
 
 // Register post type
-add_action( 'init', 'register_cpt_shift8_portfolio' );
+add_action( 'init', 'shift8_portfolio_register_cpt' );
 
-function register_cpt_shift8_portfolio() {
+function shift8_portfolio_register_cpt() {
 
         $labels = array(
                 'name' => __( 'Shift8 Portfolios', 'shift8_portfolio' ),
