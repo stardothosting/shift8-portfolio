@@ -14,7 +14,7 @@ This is a Wordpress plugin that allows you to easily manage and showcase a grid 
 
 This plugin integrates a stripped down bootstrap scaffolding in order to allow you to showcase a full screen / full width grid of portfolio items on your site. Simply use the shortcode to place your grid anywhere you want. A custom content type called "Shift8 Portfolio" is created for you to manage internally. You have the option of having a separate single page for each portfolio item added (that you will arrive when you click the image in the grid). If no additional information is given in the backend then clicking the image in the grid will simply enlarge it as a modal window.
 
-You can see a demo of the plugin in use on our own [web design](https://www.shift8web.ca "Toronto Web Design") page.
+You can see a demo of the plugin in use on our own [web design](https://www.shift8web.ca "Toronto Web Design") portfolio page.
 
 == Installation ==
 
