@@ -5,7 +5,11 @@ add_filter( 'single_template', 'shift8_portfolio_custom_post_type_template' );
 function shift8_portfolio_custom_post_type_template($single_template) {
      global $post;
      if ($post->post_type == 'shift8_portfolio' ) {
-          $single_template = plugin_dir_path(dirname(__FILE__)) . 'template/single-portfolio.php';
+	if ( !file_exists(get_template_directory() . '/single-portfolio.php') ) {
+		$single_template = plugin_dir_path(dirname(__FILE__)) . 'template/single-portfolio.php';
+	} else {
+		$single_template = get_template_directory() . '/single-portfolio.php';
+	}
      }
      return $single_template;
      wp_reset_postdata();

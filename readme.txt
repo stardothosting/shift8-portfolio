@@ -4,7 +4,7 @@ Donate link: https://www.shift8web.ca
 Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
 Requires at least: 3.0.1
 Tested up to: 4.5.2
-Stable tag: 4.3
+Stable tag: 1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -61,3 +61,6 @@ We do [toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 * Stable version created
 * Implemented short code options 
 * Updated readme
+
+= 1.1 =
+* Added check for template folder for single-portfolio.php file. You can now copy the file to your theme and safely modify the single portfolio page template
