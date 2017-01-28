@@ -24,7 +24,7 @@ function shift8_portfolio_get_image_id($image_url) {
 function shift8_portfolio_shortcode($atts){
 	extract(shortcode_atts(array(
 		'numposts' => '-1',
-		'numcolumn' => '6',
+		'numperrow' => '6',
 	), $atts));
 
 	$args = array(
@@ -65,7 +65,7 @@ function shift8_portfolio_shortcode($atts){
 				$work_image_display = '<div class="shift8-portfolio-image-cropped" style="background-image: url(\'' . $work_image[0] . '\');"><div class="shift8-portfolio-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
 			}
 			// get project name
-			$out .= '<div class="col-lg-' . $numcolumn . ' col-md-' . $numcolumn . ' col-xs-12 shift8-portfolio-thumb" id="shift8-portfolio-' . get_the_ID() . '">
+			$out .= '<div class="col-lg-' . $numperrow . ' col-md-' . $numperrow . ' col-xs-12 shift8-portfolio-thumb" id="shift8-portfolio-' . get_the_ID() . '">
 			'. $work_image_display .'
 			<div class="shift8-portfolio-overlay">
 			<a href="' . $work_link . '" class="shift8-portfolio-expand">+</a>
