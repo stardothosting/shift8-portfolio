@@ -59,3 +59,7 @@ We do [Toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 ### 1.2
 * Added the shortcode option "numperrow" to specify how many items per row to list
+
+### 1.3
+* Changed ID of each portfolio item in multiple view page (shortcode) to use ID instead of class
+
