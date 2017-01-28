@@ -3,7 +3,7 @@
  * Plugin Name: Shift8 Portfolio
  * Plugin URI: https://github.com/stardothosting/shift8-portfolio
  * Description: This is a Wordpress plugin that allows you to easily manage and showcase a grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
- * Version: 1.1
+ * Version: 1.2
  * Author: Shift8 Web 
  * Author URI: https://www.shift8web.ca
  * License: GPLv3
@@ -24,6 +24,7 @@ function shift8_portfolio_get_image_id($image_url) {
 function shift8_portfolio_shortcode($atts){
 	extract(shortcode_atts(array(
 		'numposts' => '-1',
+		'numcolumn' => '6',
 	), $atts));
 
 	$args = array(
@@ -34,6 +35,14 @@ function shift8_portfolio_shortcode($atts){
 		'orderby' => 'date',
 		'order' => 'DESC',
 	);
+
+	// check if number per row is divisible by 12.
+	if ($numperrow %12 != 0) {
+		$numperrow = 12 / $numperrow;
+	} else {
+		$numperrow = 6;
+	}
+
 	
 	global $post;
 	$out = '';
@@ -56,7 +65,7 @@ function shift8_portfolio_shortcode($atts){
 				$work_image_display = '<div class="shift8-portfolio-image-cropped" style="background-image: url(\'' . $work_image[0] . '\');"><div class="shift8-portfolio-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
 			}
 			// get project name
-			$out .= '<div class="col-lg-6 col-md-6 col-xs-12 shift8-portfolio-thumb shift8-portfolio-' . get_the_ID() . '">
+			$out .= '<div class="col-lg-' . $numcolumn . ' col-md-' . $numcolumn . ' col-xs-12 shift8-portfolio-thumb shift8-portfolio-' . get_the_ID() . '">
 			'. $work_image_display .'
 			<div class="shift8-portfolio-overlay">
 			<a href="' . $work_link . '" class="shift8-portfolio-expand">+</a>

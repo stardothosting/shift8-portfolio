@@ -56,3 +56,6 @@ We do [Toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 ### 1.1
 * Added check for template folder for single-portfolio.php file. You can now copy the file to your theme and safely modify the single portfolio page template
+
+### 1.2
+* Added the shortcode option "numperrow" to specify how many items per row to list
