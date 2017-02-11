@@ -94,7 +94,7 @@ function shift8_portfolio_save_custom_meta($post_id) {
 
         // Loop through meta fields
         foreach ($custom_meta_fields as $field) {
-                $new_meta_value = esc_url($_POST[$field['id']]);
+                $new_meta_value = esc_attr($_POST[$field['id']]);
 		$meta_key = $field['id'];
                 $meta_value = get_post_meta( $post_id, $meta_key, true );
 
