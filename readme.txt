@@ -4,7 +4,7 @@ Donate link: https://www.shift8web.ca
 Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
 Requires at least: 3.0.1
 Tested up to: 4.7.2
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -76,3 +76,6 @@ We do [toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 = 1.5 =
 * Fixed bug in inline jQuery to make entire image area clickable in multi portfolio item page
+
+= 1.6 =
+* Added ability to add mobile version of tile images TBD for mobile portrait mode version of images

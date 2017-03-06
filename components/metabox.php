@@ -22,6 +22,12 @@ $custom_meta_fields = array(
         'type'  => 'media'
     ),
     array(
+        'label'=> 'Mobile Tile Image',
+        'desc'  => 'This is the image that is shown in the portfolio list grid page on mobile only, specifically in portrait mode.',
+        'id'    => $prefix.'mobileimage',
+        'type'  => 'mobile'
+    ),
+    array(
         'label'=> 'Gallery Images',
         'desc'  => 'This is the gallery images on the single item page.',
         'id'    => $prefix.'gallery',
@@ -53,6 +59,15 @@ function shift8_portfolio_show_custom_meta_box($object) {
                         echo '<input id="shift8_portfolio_image" type="hidden" name="shift8_portfolio_image" value="' . esc_attr($meta) . '" />
                         <div class="shift8_portfolio_image_container">' . $close_button . '<img id="shift8_portfolio_image_src" src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '"></div>
                         <input id="shift8_portfolio_image_button" type="button" value="Add Image" />';
+                        break;
+                        case 'mobile':
+                        $close_button = null;
+                        if ($meta) {
+                                $close_button = '<span class="shift8_mobileportfolio_close"></span>';
+                        }
+                        echo '<input id="shift8_portfolio_mobileimage" type="hidden" name="shift8_portfolio_mobileimage" value="' . esc_attr($meta) . '" />
+                        <div class="shift8_portfolio_mobileimage_container">' . $close_button . '<img id="shift8_portfolio_mobileimage_src" src="' . wp_get_attachment_thumb_url(shift8_portfolio_get_image_id($meta)) . '"></div>
+                        <input id="shift8_portfolio_mobileimage_button" type="button" value="Add Image" />';
                         break;
                         case 'gallery':
                         $meta_html = null;

@@ -1,6 +1,8 @@
 jQuery(document).ready(function() {
 
 	var meta_image_frame;
+	var meta_mobileimage_frame;
+
         // Runs when the image button is clicked.
         jQuery('#shift8_portfolio_image_button').click(function(e){
 
@@ -34,6 +36,40 @@ jQuery(document).ready(function() {
 
                 // Opens the media library frame.
                 meta_image_frame.open();
+        });
+
+        jQuery('#shift8_portfolio_mobileimage_button').click(function(e){
+
+                // Prevents the default action from occuring.
+                e.preventDefault();
+
+                // If the frame already exists, re-open it.
+                if ( meta_mobileimage_frame ) {
+                        meta_mobileimage_frame.open();
+                        return;
+                }
+
+                // Sets up the media library frame
+                meta_mobileimage_frame = wp.media.frames.meta_mobileimage_frame = wp.media({
+                        title: shift8_portfolio_mobileimage.title,
+                        button: { text:  shift8_portfolio_mobileimage.button },
+                        library: { type: 'image' },
+                });
+
+                // Runs when an image is selected.
+                meta_mobileimage_frame.on('select', function(){
+
+                        // Grabs the attachment selection and creates a JSON representation of the model.
+                        var media_attachment = meta_mobileimage_frame.state().get('selection').first().toJSON();
+
+                        // Sends the attachment URL to our custom image input field.
+                        jQuery('#shift8_portfolio_mobileimage').val(media_attachment.url);
+                        jQuery('.shift8_portfolio_mobileimage_container').append('<span class="shift8_mobileportfolio_close"></span>');
+                        jQuery('#shift8_portfolio_mobileimage_src').attr('src', media_attachment.sizes.thumbnail.url);
+                });
+
+                // Opens the media library frame.
+                meta_mobileimage_frame.open();
         });
 
         var meta_gallery_frame;
@@ -133,10 +169,22 @@ jQuery(document).ready(function() {
 
                 if (confirm('Are you sure you want to remove this image?')) {
                         jQuery('.shift8_portfolio_image_container').remove();
+                        //jQuery('#shift8_portfolio_image_src').remove();
+                        //jQuery('.shift8_portfolio_close').remove();
                         jQuery("#shift8_portfolio_image").val('');
 		}
 	});
 
+        jQuery(document.body).on('click', '.shift8_mobileportfolio_close', function(event){
+                event.preventDefault();
+
+                if (confirm('Are you sure you want to remove this image?')) {
+                        jQuery('.shift8_portfolio_mobileimage_container').remove();
+                        //jQuery('#shift8_portfolio_mobileimage_src').remove();
+                        //jQuery('.shift8_mobileportfolio_close').remove();
+                        jQuery("#shift8_portfolio_mobileimage").val('');
+                }
+        });
 
 
 	jQuery(document.body).on('click', '.shift8_portfolio_gallery_close', function(event){
