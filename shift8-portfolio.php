@@ -20,7 +20,7 @@ function shift8_portfolio_get_image_id($image_url) {
         return $attachment[0];
 }
 
-// Shortcode for menu overlay system
+// Shortcode for multiple portfolio system
 function shift8_portfolio_shortcode($atts){
 	extract(shortcode_atts(array(
 		'numposts' => '-1',
