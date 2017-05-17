@@ -3,7 +3,7 @@
  * Plugin Name: Shift8 Portfolio
  * Plugin URI: https://github.com/stardothosting/shift8-portfolio
  * Description: This is a Wordpress plugin that allows you to easily manage and showcase a grid of your portfolio items. If an item has a "Writeup" or additional information, then clicking the image will go to the single portfolio item page. If not, then it will expand to a larger image.
- * Version: 1.6
+ * Version: 1.7
  * Author: Shift8 Web 
  * Author URI: https://www.shift8web.ca
  * License: GPLv3
