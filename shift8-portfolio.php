@@ -13,11 +13,21 @@ require_once(plugin_dir_path(__FILE__).'components/enqueuing.php' );
 require_once(plugin_dir_path(__FILE__).'components/custompost.php' );
 require_once(plugin_dir_path(__FILE__).'components/metabox.php' );
 
-// Get image ID from URL
+/*
+* Get image ID from URL
+*
+* @param string   $image_url   Url for an image
+* @return int|null
+*/
 function shift8_portfolio_get_image_id($image_url) {
     global $wpdb;
     $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ));
+    
+    if (isset($attachment)) {    
         return $attachment[0];
+    } else {
+        return null;
+    }
 }
 
 // Shortcode for multiple portfolio system
@@ -53,7 +63,12 @@ function shift8_portfolio_shortcode($atts){
 			$posts->the_post();
 			// get event image
 			$work_image_url = esc_url(get_post_meta(get_the_ID(),'shift8_portfolio_image',true));
-			$work_image = wp_get_attachment_image_src(shift8_portfolio_get_image_id($work_image_url), 'large');
+			$work_image_src = shift8_portfolio_get_image_id($work_image_url);
+                        $work_image = null;
+
+                        if ($work_image_src != null) {
+                            $work_image = wp_get_attachment_image_src($work_image_src, 'large');
+                        }
 
 			$work_image_display = null;
 			// get link to work page
@@ -61,7 +76,7 @@ function shift8_portfolio_shortcode($atts){
 			// get gallery ids
 			$work_gallery = explode(',', get_post_meta(get_the_ID(),'shift8_portfolio_image',true));
 
-			if (!empty($work_image)) {
+			if (!empty($work_image) && $work_image != null) {
 				$work_image_display = '<div class="shift8-portfolio-image-cropped" style="background-image: url(\'' . $work_image[0] . '\');"><div class="shift8-portfolio-image-layer"><h2>' . get_the_title() . '</h2></div></div>';
 			}
 			// get project name

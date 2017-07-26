@@ -93,6 +93,9 @@ function shift8_portfolio_show_custom_meta_box($object) {
 function shift8_portfolio_save_custom_meta($post_id) {
         global $custom_meta_fields;
 
+        if (!isset($_POST['custom_meta_box_nonce'])) {
+                return;
+        }
         // Verify nonce
         if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
                 return $post_id;
