@@ -31,7 +31,12 @@ jQuery(document).ready(function() {
                         // Sends the attachment URL to our custom image input field.
                         jQuery('#shift8_portfolio_image').val(media_attachment.url);
 			jQuery('.shift8_portfolio_image_container').append('<span class="shift8_portfolio_close"></span>');
-			jQuery('#shift8_portfolio_image_src').attr('src', media_attachment.sizes.thumbnail.url);	
+			// If the image is smaller than the thumbnail size, use the main URL
+			if (typeof media_attachment.sizes.thumbnail === 'undefined') {
+				jQuery('#shift8_portfolio_image_src').attr('src', media_attachment.url);	
+			} else {
+				jQuery('#shift8_portfolio_image_src').attr('src', media_attachment.sizes.thumbnail.url);	
+			}
                 });
 
                 // Opens the media library frame.
@@ -65,7 +70,12 @@ jQuery(document).ready(function() {
                         // Sends the attachment URL to our custom image input field.
                         jQuery('#shift8_portfolio_mobileimage').val(media_attachment.url);
                         jQuery('.shift8_portfolio_mobileimage_container').append('<span class="shift8_mobileportfolio_close"></span>');
-                        jQuery('#shift8_portfolio_mobileimage_src').attr('src', media_attachment.sizes.thumbnail.url);
+						// If the image is smaller than the thumbnail size, use the main URL
+						if (typeof media_attachment.sizes.thumbnail === 'undefined') {
+                        	jQuery('#shift8_portfolio_mobileimage_src').attr('src', media_attachment.url);
+                        } else {
+							jQuery('#shift8_portfolio_mobileimage_src').attr('src', media_attachment.sizes.thumbnail.url);
+						}
                 });
 
                 // Opens the media library frame.
@@ -144,9 +154,14 @@ jQuery(document).ready(function() {
 			images = meta_gallery_frame.state().get('selection');
 			imageHTML += '<ul class="shift8_portfolio_gallery_list">';
 			images.each(function(attachment) {
+                console.debug(attachment.attributes);
 				imageIDArray.push(attachment.attributes.id);
 				//imageHTML += '<li>'+button+'<img id="'+attachment.attributes.id+'" src="'+attachment.attributes.url+'"></li>';
-				imageHTML += '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="'+attachment.attributes.id+'" src="'+attachment.attributes.sizes.thumbnail.url+'"></span></div></li>';
+                if (typeof attachment.attributes.sizes.thumbnail === 'undefined') {
+                    imageHTML += '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="'+attachment.attributes.id+'" src="'+attachment.attributes.url+'"></span></div></li>';
+                } else {
+					imageHTML += '<li><div class="shift8_portfolio_gallery_container"><span class="shift8_portfolio_gallery_close"><img id="'+attachment.attributes.id+'" src="'+attachment.attributes.sizes.thumbnail.url+'"></span></div></li>';
+				}
 			});
 			imageHTML += '</ul>';
 			metadataString = imageIDArray.join(",");
