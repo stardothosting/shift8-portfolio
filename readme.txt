@@ -3,8 +3,8 @@ Contributors:
 Donate link: https://www.shift8web.ca
 Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
 Requires at least: 3.0.1
-Tested up to: 4.8.1
-Stable tag: 1.9
+Tested up to: 4.9.3
+Stable tag: 1.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,3 +88,6 @@ We do [toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 = 1.9 =
 * Resolved bug in jQuery media dialogue when adding an image that is less than the thumbnail size set in settings (Thanks Danny!)
+
+= 1.10 =
+* Updated support for latest Wordpress Version
