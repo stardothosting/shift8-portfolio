@@ -3,8 +3,8 @@
 * Donate link: https://www.shift8web.ca
 * Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
 * Requires at least: 3.0.1
-* Tested up to: 4.9.3
-* Stable tag: 1.10
+* Tested up to: 5.0.2
+* Stable tag: 1.11
 * License: GPLv3
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,3 +83,6 @@ We do [Toronto web design](https://www.shift8web.ca "Toronto Web Design") :)
 
 ### 1.10
 * Updated support for latest Wordpress Version
+
+### 1.11
+* Wordpress 5 compatibility
