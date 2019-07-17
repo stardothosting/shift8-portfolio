@@ -3,7 +3,7 @@ Contributors:
 Donate link: https://www.shift8web.ca
 Tags: full width portfolio, portfolio, artwork, full width showcase, full width gallery, portfolio grid, full width grid, full width portfolio grid, full screen portfolio, responsive portfolio, responsive portfolio grid, responsive grid
 Requires at least: 3.0.1
-Tested up to: 5.0.2
+Tested up to: 5.2.2
 Stable tag: 1.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
