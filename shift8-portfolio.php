@@ -15,12 +15,15 @@ require_once(plugin_dir_path(__FILE__).'components/metabox.php' );
 
 // Get image ID from URL
 function shift8_portfolio_get_image_id($image_url) {
-    global $wpdb;
-    $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ));
-        return $attachment[0];
+	global $wpdb;
+	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ));
+	if(sizeof($attachment) >0) {
+		return $attachment[0];
+	}
+	return -1;
 }
 
-// Shortcode for multiple portfolio system
+// Short-code for multiple portfolio system
 function shift8_portfolio_shortcode($atts){
 	extract(shortcode_atts(array(
 		'numposts' => '-1',
@@ -43,7 +46,7 @@ function shift8_portfolio_shortcode($atts){
 		$numperrow = 6;
 	}
 
-	
+
 	global $post;
 	$out = '';
 	$posts = new WP_Query($args);
