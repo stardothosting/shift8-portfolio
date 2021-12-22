@@ -91,38 +91,43 @@ function shift8_portfolio_show_custom_meta_box($object) {
 
 // Save the Data
 function shift8_portfolio_save_custom_meta($post_id) {
-        global $custom_meta_fields;
+	if($_POST) {
+		global $custom_meta_fields;
 
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
-                return $post_id;
-        // Check autosave
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return $post_id;
-        // Check permissions
-        if ('page' == $_POST['post_type']) {
-                if (!current_user_can('edit_page', $post_id))
-                        return $post_id;
-        } elseif (!current_user_can('edit_post', $post_id)) {
-                return $post_id;
-        }
+		// Verify nonce
+		if ( ! wp_verify_nonce( $_POST['custom_meta_box_nonce'], basename( __FILE__ ) ) ) {
+			return $post_id;
+		}
+		// Check autosave
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return $post_id;
+		}
+		// Check permissions
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+				return $post_id;
+			}
+		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return $post_id;
+		}
 
-        // Loop through meta fields
-        foreach ($custom_meta_fields as $field) {
-                $new_meta_value = esc_attr($_POST[$field['id']]);
-		$meta_key = $field['id'];
-                $meta_value = get_post_meta( $post_id, $meta_key, true );
+		// Loop through meta fields
+		foreach ( $custom_meta_fields as $field ) {
+			$new_meta_value = esc_attr( $_POST[ $field['id'] ] );
+			$meta_key       = $field['id'];
+			$meta_value     = get_post_meta( $post_id, $meta_key, true );
 
-                // If theres a new meta value and the existing meta value is empty
-                if ( $new_meta_value && $meta_value == null ) {
-                        add_post_meta( $post_id, $meta_key, $new_meta_value, true );
-                // If theres a new meta value and the existing meta value is different
-                } elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
-                        update_post_meta( $post_id, $meta_key, $new_meta_value );
-                } elseif ( $new_meta_value == null && $meta_value ) {
-                        delete_post_meta( $post_id, $meta_key, $meta_value );
-                }
-        }
+			// If theres a new meta value and the existing meta value is empty
+			if ( $new_meta_value && $meta_value == null ) {
+				add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+				// If theres a new meta value and the existing meta value is different
+			} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
+				update_post_meta( $post_id, $meta_key, $new_meta_value );
+			} elseif ( $new_meta_value == null && $meta_value ) {
+				delete_post_meta( $post_id, $meta_key, $meta_value );
+			}
+		}
+	}
 }
 
 add_action('save_post', 'shift8_portfolio_save_custom_meta');
